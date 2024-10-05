@@ -1,6 +1,15 @@
 console.log("video script added");
-// 1 - Fetch, Load and Show Catagories on html
 
+function getTimeString(time) {
+    // get Hour and rest seconds
+    const hour = parseInt(time / 3600);
+    let remainingSSecond = time % 3600;
+    const minute = parseInt(remainingSSecond / 60);
+    remainingSSecond = remainingSSecond % 60;
+    return `${hour} hour ${minute} minute ${remainingSSecond} second ago`;
+}
+
+// 1 - Fetch, Load and Show Catagories on html
 // create loadCategories
 const loadCategories = () => {
     // fetch the data
@@ -31,8 +40,9 @@ const displayVideos = (videos) => {
     <img
       src=${video.thumbnail} class = "h-full w-full object-cover";
       alt="Shoes" />
-      <span class = "absolute right-2 bottom-2 bg-black text-white rounded p-1">${video.others.posted_date}</span>
-  </figure>
+      ${video.others.posted_date?.length == 0 ? "" : `<span class = "absolute right-2 bottom-2 bg-black text-white rounded p-1">${getTimeString(video.others.posted_date)}</span>`
+      }
+        </figure >
   <div class="px-0 py-2 flex gap-2">
         <div>
         <img class="w-10 h-10 rounded-full object-cover" src = "${video.authors[0].profile_picture}" />
